@@ -1,20 +1,21 @@
 # Data — never commit. Mapillary images are CC BY-SA; bulk redistribution
 # triggers ShareAlike obligations. Publish annotations + image IDs instead.
-data/
+# Leading slash anchors to the repo root, so src/road_defect/data/ still tracks.
+/data/
 *.zip
 
 # Model weights
 *.pt
 *.onnx
-runs/
+/runs/
 
 # MLflow
-mlruns/
+/mlruns/
 mlflow.db
-mlartifacts/
+/mlartifacts/
 
 # Label Studio
-label-studio-data/
+/label-studio-data/
 
 # Secrets
 .env
