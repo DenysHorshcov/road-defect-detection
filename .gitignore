@@ -1,0 +1,35 @@
+# Data — never commit. Mapillary images are CC BY-SA; bulk redistribution
+# triggers ShareAlike obligations. Publish annotations + image IDs instead.
+data/
+*.zip
+
+# Model weights
+*.pt
+*.onnx
+runs/
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Label Studio
+label-studio-data/
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

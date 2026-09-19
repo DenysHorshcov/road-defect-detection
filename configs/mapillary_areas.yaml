@@ -1,0 +1,20 @@
+# Geographic areas to sweep for street-level imagery.
+#
+# The Mapillary /images endpoint requires each bbox query to be smaller than
+# 0.01 degrees square (tightened 2026-01-16) and returns at most 2000 images,
+# so these areas are walked as a grid of small tiles by data/mapillary.py.
+
+tile_size_deg: 0.009
+
+areas:
+  - name: kyiv_center
+    min_lon: 30.50
+    min_lat: 50.43
+    max_lon: 30.56
+    max_lat: 50.47
+
+  - name: lviv_center
+    min_lon: 24.01
+    min_lat: 49.83
+    max_lon: 24.06
+    max_lat: 49.85
