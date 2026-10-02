@@ -19,6 +19,8 @@ from pathlib import Path
 
 import mlflow
 from dotenv import load_dotenv
+from mlflow.exceptions import MlflowException
+from mlflow.store.artifact.runs_artifact_repo import RunsArtifactRepository
 from mlflow.tracking import MlflowClient
 
 MODEL_NAME = "road-defect-detector"
@@ -59,7 +61,16 @@ def promote(experiment_name: str, alias: str, metric: str = SELECTION_METRIC) ->
         if key in run.data.metrics:
             print(f"  {key:<24}{run.data.metrics[key]:.4f}")
 
-    version = mlflow.register_model(f"runs:/{run.info.run_id}/weights", MODEL_NAME)
+    # mlflow.register_model() expects an MLmodel manifest, which Ultralytics doesn't
+    # write -- weights/best.pt is a plain run artifact. create_model_version() against
+    # the artifact's underlying URI registers it without that check.
+    try:
+        client.create_registered_model(MODEL_NAME)
+    except MlflowException:
+        pass
+    runs_uri = f"runs:/{run.info.run_id}/weights"
+    source = RunsArtifactRepository.get_underlying_uri(runs_uri)
+    version = client.create_model_version(MODEL_NAME, source, run.info.run_id)
     client.set_registered_model_alias(MODEL_NAME, alias, version.version)
     print(f"\nRegistered {MODEL_NAME} v{version.version} as @{alias}")
 

@@ -69,9 +69,9 @@ def main() -> None:
         workers=args.workers,
         device=args.device,
         cache=args.cache,
-        # Joined onto Ultralytics' runs_dir (the repo's runs/), so this must be
-        # a bare name -- passing "runs/detect" here nests it a second time.
-        project="detect",
+        # project is deliberately unset: Ultralytics defaults it to
+        # <runs_dir>/<task>, i.e. runs/detect. Passing any relative path here is
+        # resolved against that same default and nests the directory twice.
         name=run_name,
         exist_ok=True,
         plots=True,
