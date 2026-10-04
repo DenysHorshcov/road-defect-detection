@@ -85,14 +85,6 @@ Validation batch with model predictions, rendered by Ultralytics during training
 - **Faded markings are a condition, not an object.** The class means *worn* markings. Fresh, bright lines are correctly ignored, so an empty result on a new road is expected.
 - **Small test sample.** The reported numbers come from one validation split of ~1,800 images.
 
-## Recommendations
-
-1. **Upgrade the model before adding data.** Validation mAP has plateaued over the last ~8 epochs while training loss kept falling. A larger variant (`yolo26s` or `yolo26m`) is the next experiment.
-2. **Raise input resolution for thin defects.** Training at `imgsz=960` or higher should help cracks. Budget for more GPU memory.
-3. **Widen the data distribution.** The Mapillary collection client in `src/road_defect/data/mapillary.py` is implemented but not yet used for training. Adding diverse street photos would address the domain shift.
-4. **Tune the confidence threshold per product.** A reporting tool that prefers recall needs a lower threshold than an automated repair queue.
-5. **Add test-time augmentation** for a cheap accuracy gain at inference time.
-
 ## Architecture
 
 ```mermaid
